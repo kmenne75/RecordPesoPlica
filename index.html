@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#1f4e78">
+  <meta name="description" content="Registro personale offline per peso e plica addominale">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>Peso & Plica</title>
+</head>
+<body>
+<header><div><h1>Peso & Plica</h1><p>Registro personale offline</p></div><button id="installBtn" class="ghost" hidden>Installa</button></header>
+<nav>
+  <button data-view="today" class="active">Oggi</button>
+  <button data-view="calendar">Calendario</button>
+  <button data-view="charts">Grafici</button>
+  <button data-view="history">Storico</button>
+  <button data-view="settings">Dati</button>
+</nav>
+<main>
+<section id="today" class="view active">
+  <div class="storage-card" id="storageCard">
+    <div><strong>Archivio su file</strong><small id="fileStatus">Nessuna cartella collegata</small></div>
+    <button id="connectFolder" type="button">Collega cartella</button>
+  </div>
+  <div class="card">
+    <h2>Nuova rilevazione</h2>
+    <form id="entryForm">
+      <label>Data<input id="date" type="date" required></label>
+      <div class="grid2">
+        <label>Peso (kg)<input id="weight" type="number" inputmode="decimal" step="0.01" min="20" max="300" placeholder="es. 76,20"></label>
+        <label>Plica addominale (mm)<input id="fold" type="number" inputmode="decimal" step="0.1" min="1" max="100" placeholder="es. 14,5"></label>
+      </div>
+      <label>Note<textarea id="notes" rows="3" maxlength="500" placeholder="Facoltative"></textarea></label>
+      <button class="primary" type="submit">Salva rilevazione</button>
+      <button class="danger" id="deleteDay" type="button" hidden>Elimina rilevazione</button>
+    </form>
+    <p id="message" role="status"></p>
+  </div>
+  <div id="quickStats" class="stats"></div>
+</section>
+<section id="calendar" class="view">
+  <div class="toolbar"><button id="prevMonth">‹</button><h2 id="monthTitle"></h2><button id="nextMonth">›</button></div>
+  <div class="weekdays"><span>L</span><span>M</span><span>M</span><span>G</span><span>V</span><span>S</span><span>D</span></div>
+  <div id="calendarGrid" class="calendar-grid"></div>
+</section>
+<section id="charts" class="view">
+  <div class="card"><h2>Andamento</h2><label>Periodo<select id="chartRange"><option value="30">30 giorni</option><option value="90">90 giorni</option><option value="365">12 mesi</option><option value="all">Tutto</option></select></label><canvas id="trendChart" width="800" height="420"></canvas><div class="legend"><span class="weight-dot">Peso</span><span class="fold-dot">Plica</span></div></div>
+</section>
+<section id="history" class="view">
+  <div class="card"><h2>Riepilogo</h2><div class="grid2"><label>Anno<select id="summaryYear"></select></label><label>Mese<select id="summaryMonth"><option value="all">Intero anno</option></select></label></div><div id="summaryCards" class="stats"></div></div>
+  <div class="card"><h2>Rilevazioni</h2><div id="historyList"></div></div>
+</section>
+<section id="settings" class="view">
+  <div class="card"><h2>Archivio e backup</h2><p>L’archivio principale è il file <code>peso_plica_dati.json</code> nella cartella scelta. Il database del browser è utilizzato solo come cache di sicurezza.</p><button id="reconnectFolder" class="primary">Collega o cambia cartella</button><button id="syncFile">Sincronizza ora</button><button id="exportJson" class="primary">Esporta backup JSON</button><button id="exportCsv">Esporta CSV</button><label class="fileBtn">Importa backup JSON<input id="importJson" type="file" accept="application/json" hidden></label></div>
+  <div class="card"><h2>Gestione archivio</h2><button id="clearAll" class="danger">Cancella tutti i dati</button><p class="small">L'operazione richiede conferma e non può essere annullata senza un backup.</p></div>
+</section>
+</main>
+<script src="app.js"></script>
+</body></html>

@@ -1,0 +1,10 @@
+{
+  "name": "Peso e Plica",
+  "short_name": "Peso&Plica",
+  "lang": "it",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fa",
+  "theme_color": "#1f4e78",
+  "description": "Registro personale offline per peso e plica addominale"
+}
